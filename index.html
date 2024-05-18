@@ -130,13 +130,8 @@
           result.style.color = "red";
           return;
         }
-        if (min <= 0) {
-          result.textContent = "Минимаьное число должно быть больше 0!";
-          result.style.color = "red";
-          return;
-        }
-        if (max <= 0) {
-          result.textContent = "Максимальное число должно быть больше 0!";
+        if (min <= 0 || max <= 0) {
+          result.textContent = "Минимальное и максимальное числа должны быть больше 0!";
           result.style.color = "red";
           return;
         }
