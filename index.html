@@ -158,6 +158,11 @@
           result.style.color = "red";
           return;
         }
+        if (min <= 0 || max <= 0) {
+          result.textContent = "Минимальное и максимальное числа должны быть больше 0!";
+          result.style.color = "red";
+          return;
+        }
 
         const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
         result.textContent = `Сгенерированное число: ${randomNum}`;
