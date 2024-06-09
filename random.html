@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Magic Site | Рандом</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #101420;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-direction: column;
+    }
+
+    #box1 {
+      width: calc(100vw - 40px);
+      max-width: 400px;
+      height: 250px;
+      background-color: rgba(96, 80, 190, 0.5);
+      padding: 20px;
+      border: 1px solid #000;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(96, 80, 190, 0.5);
+    }
+    #box1 button {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 400px;
+      height: 50px;
+      background: linear-gradient(to right, #6d0f0f, #ff0000);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    #box2 {
+      width: calc(100vw - 40px);
+      max-width: 400px;
+      height: 100px;
+      background-color: rgba(96, 80, 190, 0.5);
+      padding: 20px;
+      border: 1px solid #000;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(96, 80, 190, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease-in-out;
+    }
+
+    #result {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #inputs {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #inputs input {
+      width: 100px;
+      height: 40px;
+      padding: 5px;
+      background-color: #12151b;
+      border-radius: 5px;
+      color: #fff;
+    }
+
+    .snowflake {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: 0px;
+      }
+      100% {
+        top: 100vh;
+      }
+    }
+
+    #ad {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 50px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      line-height: 50px;
+      font-size: 14px;
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 200px;
+      background-color: #0d101a;
+      padding: 20px;
+      color: #fff;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0;
+    }
+
+    .modal-content ul li {
+      cursor: pointer;
+    }
+
+    .modal-content ul li:hover {
+      background-color: #ccc;
+    }
+
+    .modal-content button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      background-color: #ccc;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #open-modal {
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background-color: #ccc;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="box1">
+      <h2 style="color: #fff">Генератор случайных чисел</h2>
+      <p style="color: #fff">Введите минимальное и максимальное числа, между которыми будет сгенерировано случайное число.</p>
+      <div id="inputs">
+        <input type="number" id="min" placeholder="Мин. число">
+        <input type="number" id="max" placeholder="Макс. число">
+      </div>
+      <button id="open-modal">Меню</button>
+    </div>
+    <div id="box2">
+      <p id="result"></p>
+    </div>
+    <div id="ad">
+      Лучший бот телеграм: <a href="https://t.me/danyagreench_bot?start=adv">Перейти</a>
+    </div>
+  </div>
+  <div class="modal">
+    <div class="modal-content">
+      <ul>
+        <li data-href="index.html">Главная</li>
+        <li data-href="random.html">| Рандом |</li>
+        <li data-href="pf.html">Песенка</li>
+      </ul>
+      <button id="close-modal">x</button>
+    </div>
+  </div>
+
+  <script>
+    const result = document.getElementById("result");
+    const minInput = document.getElementById("min");
+    const maxInput = document.getElementById("max");
+    const box2 = document.getElementById("box2");
+
+    minInput.addEventListener("input", () => {
+      if (minInput.value !== "" && maxInput.value !== "") {
+        box2.style.opacity = 1;
+        box2.style.visibility = "visible";
+
+        const min = parseInt(minInput.value);
+        const max = parseInt(maxInput.value);
+
+        if (min <= 0 || max <= 0) {
+          result.textContent = "Минимальное и максимальное числа должны быть больше 0!";
+          result.style.color = "red";
+          return;
+        }
+        if (min >= max) {
+          result.textContent = "Минимальное число должно быть меньше максимального!";
+          result.style.color = "red";
+          return;
+        }
+
+        const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+        result.textContent = `Сгенерированное число: ${randomNum}`;
+        result.style.color = "green";
+      } else {
+        box2.style.opacity = 0;
+        box2.style.visibility = "hidden";
+      }
+    });
+
+    maxInput.addEventListener("input", () => {
+      if (minInput.value !== "" && maxInput.value !== "") {
+        box2.style.opacity = 1;
+        box2.style.visibility = "visible";
+
+        const min = parseInt(minInput.value);
+        const max = parseInt(maxInput.value);
+
+        if (min <= 0 || max <= 0) {
+          result.textContent = "Минимальное и максимальное числа должны быть больше 0!";
+          result.style.color = "red";
+          return;
+        }
+        if (min >= max) {
+          result.textContent = "Минимальное число должно быть меньше максимального!";
+          result.style.color = "red";
+          return;
+        }
+
+        const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+        result.textContent = `Сгенерированное число: ${randomNum}`;
+        result.style.color = "green";
+      } else {
+        box2.style.opacity = 0;
+        box2.style.visibility = "hidden";
+      }
+    });
+
+const numSnowflakes = 100;
+for (let i = 0; i < numSnowflakes; i++) {
+  const snowflake = document.createElement("div");
+  snowflake.classList.add("snowflake");
+  snowflake.style.left = `${Math.random() * 100}vw`;
+  snowflake.style.animationDelay = `${Math.random() * 5}s`;
+  document.body.appendChild(snowflake);
+}
+const modal = document.querySelector(".modal");
+  const modalContent = modal.querySelector(".modal-content");
+  const openModalButton = document.querySelector("#open-modal");
+  const closeModalButton = document.querySelector("#close-modal");
+  
+  openModalButton.addEventListener("click", function() {
+    modal.style.opacity = 1;
+    modal.style.visibility = "visible";
+  });
+  
+  closeModalButton.addEventListener("click", function() {
+    modal.style.opacity = 0;
+    modal.style.visibility = "hidden";
+  });
+  
+  modalContent.addEventListener("click", (e) => {
+    if (e.target.tagName === "LI") {
+      window.location.href = e.target.dataset.href;
+    }
+  });
+</script>
+</body>
+</html>
